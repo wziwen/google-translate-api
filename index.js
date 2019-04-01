@@ -5,6 +5,8 @@ var token = require('@vitalets/google-translate-token');
 
 var languages = require('./languages');
 
+const MAX_URL_LENGTH = 2083;
+
 function translate(text, opts) {
     opts = opts || {};
 
@@ -48,7 +50,7 @@ function translate(text, opts) {
         data[token.name] = token.value;
 
         var fullUrl = url + '?' + querystring.stringify(data);
-        if (fullUrl.length > 2083) {
+        if (fullUrl.length > MAX_URL_LENGTH) {
             delete data.q;
             return [
                 url + '?' + querystring.stringify(data),
@@ -57,7 +59,7 @@ function translate(text, opts) {
         }
         return [fullUrl];
     }).then(function (url) {
-        return got.apply(got, url).then(function (res) {
+        return got(...url).then(function (res) {
             var result = {
                 text: '',
                 from: {
