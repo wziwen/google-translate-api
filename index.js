@@ -52,10 +52,11 @@ function translate(text, opts) {
         var fullUrl = url + '?' + querystring.stringify(data);
         if (fullUrl.length > MAX_URL_LENGTH) {
             delete data.q;
-            return [
-                url + '?' + querystring.stringify(data),
-                {method: 'POST', body: {q: text}}
-            ];
+            return {
+                url: url + '?' + querystring.stringify(data),
+                method: 'POST', 
+                body: {q: text}
+           };
         }
         return {
           url: fullUrl,
