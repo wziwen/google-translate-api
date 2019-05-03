@@ -57,9 +57,12 @@ function translate(text, opts) {
                 {method: 'POST', body: {q: text}}
             ];
         }
-        return [fullUrl];
-    }).then(function (url) {
-        return got(...url).then(function (res) {
+        return {
+          url: fullUrl,
+          method: 'GET'
+        };
+    }).then(function (params) {
+        return got(params).then(function (res) {
             var result = {
                 text: '',
                 from: {
