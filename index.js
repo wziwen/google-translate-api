@@ -52,7 +52,7 @@ function translate(text, opts, gotopts) {
         var fullUrl = url + '?' + querystring.stringify(data);
         if (fullUrl.length > MAX_URL_LENGTH) {
             gotopts.method = 'POST';
-            gotopts.body = {q: text};
+            gotopts.json = {q: text};
             delete data.q;
             fullUrl = url + '?' + querystring.stringify(data);
         }
